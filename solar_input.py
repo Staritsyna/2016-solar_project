@@ -23,10 +23,13 @@ def read_space_objects_data_from_file(input_filename):
                 star = Star()
                 parse_star_parameters(line, star)
                 objects.append(star)
-            if object_type == "planet":  
+                object_type = line.split()[0].lower()
+            elif object_type == "planet": 
                 planet = Planet()
-                parse_star_parameters(line, planet)
+                parse_planet_parameters(line, planet)
                 objects.append(planet)
+                object_type = line.split()[0].lower()
+            
             else:
                 print("Unknown space object")
 
@@ -47,8 +50,16 @@ def parse_star_parameters(line, star):
     **line** — строка с описание звезды.
     **star** — объект звезды.
     """
+    Data = line.split()
+    star.r = float(Data[1])
+    star.m = float(Data[3])
+    star.color = Data[2]
+    star.x = float(Data[4])
+    star.y = float(Data[5])
+    star.Vx = float(Data[6])
+    star.Vy = float(Data[7])  
     
-        
+
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
@@ -65,7 +76,15 @@ def parse_planet_parameters(line, planet):
     **line** — строка с описание планеты.
     **planet** — объект планеты.
     """
-    pass  # FIXME: not done yet...
+    Data = line.split()
+    planet.r = float(Data[1])
+    planet.color = Data[2]
+    planet.m = float(Data[3])
+    planet.x = float(Data[4])
+    planet.y = float(Data[5])
+    planet.Vx = float(Data[6])
+    planet.Vy = float(Data[7])
+    print(Data, planet.Vy)
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
@@ -84,13 +103,12 @@ def write_space_objects_data_to_file(output_filename, space_objects):
     with open(output_filename, 'w') as out_file:
         for obj in space_objects:
             out_file.write('# '+ vobjects[i]+'\n')
+            out_file.write('\n')
             i+=1
             out_file.write(space_objects+' '+ space_objects.R+' '+space_objects.color+' '+
                   space_objects.m+' '+space_objects.x+' '+space_objects.y+' '+
                   space_objects.Vx+' '+space_objects.Vy+'\n')
-            
 
-# FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
