@@ -51,7 +51,7 @@ def parse_star_parameters(line, star):
     **star** — объект звезды.
     """
     Data = line.split()
-    star.r = float(Data[1])
+    star.R = float(Data[1])
     star.m = float(Data[3])
     star.color = Data[2]
     star.x = float(Data[4])
@@ -77,14 +77,14 @@ def parse_planet_parameters(line, planet):
     **planet** — объект планеты.
     """
     Data = line.split()
-    planet.r = float(Data[1])
+    planet.R = float(Data[1])
     planet.color = Data[2]
     planet.m = float(Data[3])
     planet.x = float(Data[4])
     planet.y = float(Data[5])
     planet.Vx = float(Data[6])
     planet.Vy = float(Data[7])
-    print(Data, planet.Vy)
+    
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
@@ -103,12 +103,15 @@ def write_space_objects_data_to_file(output_filename, space_objects):
     with open(output_filename, 'w') as out_file:
         for obj in space_objects:
             out_file.write('# '+ vobjects[i]+'\n')
+            
+            out_file.write(str(obj.type)+' '+str(obj.R)+' '+str(obj.color)+' '+str(obj.m)
+                           +' '+str(obj.x)+' '+str(obj.y)+' '+str(obj.Vx)+' '+str(obj.Vy)+'\n')
             out_file.write('\n')
             i+=1
-            out_file.write(space_objects+' '+ space_objects.R+' '+space_objects.color+' '+
-                  space_objects.m+' '+space_objects.x+' '+space_objects.y+' '+
-                  space_objects.Vx+' '+space_objects.Vy+'\n')
-
+            '''out_file.write(str(space_objects)+' '+ str(space_objects.R)+' '+str(space_objects.color)+' '+
+                  str(space_objects.m)+' '+str(space_objects.x)+' '+str(space_objects.y)+' '+
+                  str(space_objects.Vx)+' '+str(space_objects.Vy)+'\n')'''
+            
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
