@@ -29,6 +29,10 @@ def read_space_objects_data_from_file(input_filename):
                 parse_planet_parameters(line, star)
                 objects.append(planet)
                 object_type = line.split()[0].lower()
+            if object_type == "planet":  
+                planet = Planet()
+                parse_star_parameters(line, planet)
+                objects.append(planet)
             else:
                 print("Unknown space object")
 
